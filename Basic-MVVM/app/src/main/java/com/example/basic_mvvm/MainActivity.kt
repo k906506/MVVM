@@ -18,29 +18,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
-        bindViews()
-        increase()
-        decrease()
+        binding.bindingMainViewModel = viewModel
+        binding.lifecycleOwner = this
+
+// activity_main에서 onClick 으로 처리하여 아래 코드도 사용할 필요가 없어짐
+//        increase()
+//        decrease()
     }
-
-    private fun bindViews() {
-        viewModel.getNumber().observe(
-            this,
-            { binding.displayNumberTextView.text = it.toString() })
-    }
-
-    private fun increase() {
-        binding.plusButton.setOnClickListener {
-            viewModel.increase()
-        }
-    }
-
-    private fun decrease() {
-        binding.minusButton.setOnClickListener {
-            viewModel.decrease()
-        }
-    }
-
+//
+//    private fun increase() {
+//        binding.plusButton.setOnClickListener {
+//            viewModel.increase()
+//        }
+//    }
+//
+//    private fun decrease() {
+//        binding.minusButton.setOnClickListener {
+//            viewModel.decrease()
+//        }
+//    }
 }
