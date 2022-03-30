@@ -3,14 +3,18 @@ package com.example.basic_mvvm
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.example.basic_mvvm.databinding.ActivityMainBinding
+import com.example.basic_mvvm.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
 
-    private var num: Int = 0
+    private val viewModel by lazy {
+        ViewModelProviders.of(this).get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,20 +26,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindViews() {
-        binding.displayNumberTextView.text = num.toString()
+        binding.displayNumberTextView.text = viewModel.getNumber().toString()
     }
 
     private fun increase() {
         binding.plusButton.setOnClickListener {
-            num += 1
-            binding.displayNumberTextView.text = num.toString()
+            viewModel.increase()
+            binding.displayNumberTextView.text = viewModel.getNumber().toString()
         }
     }
 
     private fun decrease() {
         binding.minusButton.setOnClickListener {
-            num -= 1
-            binding.displayNumberTextView.text = num.toString()
+            viewModel.decrease()
+            binding.displayNumberTextView.text = viewModel.getNumber().toString()
         }
     }
 }
