@@ -1,13 +1,22 @@
 package com.example.basic_mvvm.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
-    var num: Int = 0
+class MainViewModel: ViewModel() {
+    private var num = MutableLiveData<Int>()
 
-    fun getNumber(): Int = num
+    init {
+        num.value = 0
+    }
 
-    fun increase() = num++;
+    fun getNumber() = num
 
-    fun decrease() = num--;
+    fun increase() {
+        num.value = num.value?.plus(1)
+    }
+
+    fun decrease() {
+        num.value = num.value?.minus(1)
+    }
 }

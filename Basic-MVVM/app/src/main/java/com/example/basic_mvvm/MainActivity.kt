@@ -26,20 +26,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindViews() {
-        binding.displayNumberTextView.text = viewModel.getNumber().toString()
+        viewModel.getNumber().observe(
+            this,
+            { binding.displayNumberTextView.text = it.toString() })
     }
 
     private fun increase() {
         binding.plusButton.setOnClickListener {
             viewModel.increase()
-            binding.displayNumberTextView.text = viewModel.getNumber().toString()
         }
     }
 
     private fun decrease() {
         binding.minusButton.setOnClickListener {
             viewModel.decrease()
-            binding.displayNumberTextView.text = viewModel.getNumber().toString()
         }
     }
+
 }
